@@ -19,11 +19,16 @@ export function CardAnimation({ children, ...rest }: CardAnimationProps) {
 
   const animatedStyle = useAnimatedStyle(() => {
     return {
+      opacity: cardOpacity.value,
+      transform: [{ translateX: cardOffset.value }]
       // TODO - setup animated style
     }
   })
 
   useEffect(() => {
+    
+    cardOpacity.value = withTiming(1, { duration: 1000 })
+    cardOffset.value = withTiming(0, { duration: 1000 })
     /**
      * TODO - setup cardOpacity.value and cardOffset.value with
      * withTiming()

@@ -37,6 +37,12 @@ export function Dashboard() {
   const { addRepository, repositories } = useRepositories();
 
   function handleAddRepository() {
+    try {
+      addRepository(inputText);
+    } catch (error) {
+      alert(error);
+    }
+    setInputText('');
     /**
      * TODO: 
      * - call addRepository function sending inputText value;
@@ -45,6 +51,9 @@ export function Dashboard() {
   }
 
   function handleRepositoryPageNavigation(id: number) {
+    navigate('Repository', {
+      repositoryId: id
+    })
     /**
      * TODO - navigate to the Repository screen sending repository id.
      * Remember to use the correct prop name (repositoryId) to the repositoy id:
@@ -71,6 +80,7 @@ export function Dashboard() {
                * changes:
                * onChangeText={YOUR CODE HERE}
                */
+              onChangeText={(text) => setInputText(text)}
               onSubmitEditing={handleAddRepository}
               returnKeyType="send"
               autoCapitalize='none'
@@ -80,6 +90,7 @@ export function Dashboard() {
             <InputButton
               testID="input-button"
               onPress={handleAddRepository}
+              disabled={inputText.length <= 0}
               /**
                * TODO - ensure to disable button when inputText is 
                * empty (use disabled prop to this):
